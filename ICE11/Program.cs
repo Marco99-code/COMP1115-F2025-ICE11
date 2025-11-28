@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Text.Json;
 
 namespace ICE11
 {
@@ -243,10 +244,12 @@ namespace ICE11
                 characterData.Species = reader.ReadString();
                 characterData.Career = reader.ReadString();
 
-                if (characterData.AGL == null || characterData.STR == null || characterData.VGR == null ||
-                    characterData.PER == null || characterData.INT == null || characterData.WIL == null ||
-                    characterData.CharacterName == null || characterData.Species == null ||
-                    characterData.Career == null)
+                if (characterData.AGL == null || characterData.STR == null
+                    || characterData.VGR == null || characterData.PER == null
+                    || characterData.INT == null || characterData.WIL == null
+                    || characterData.CharacterName == null
+                    || characterData.Species == null
+                    || characterData.Career == null)
                 {
                     throw new FileFormatException("Invalid Character file");
                 }
@@ -260,23 +263,40 @@ namespace ICE11
                 Settings.Default.CharacterName = characterData.CharacterName;
                 Settings.Default.Species = characterData.Species;
                 Settings.Default.Career = characterData.Career;
+
                 return true;
             }
-            catch (FileNotFoundException e)
+                catch (FileNotFoundException e)
             {
                 ShowToast("File Not Found: " + e.Message, ToastType.Danger);
                 return false;
             }
-            catch (FileFormatException e)
+                catch (FileFormatException e)
             {
                 ShowToast("Format Error: " + e.Message, ToastType.Danger);
                 return false;
             }
-            catch (Exception e)
+                catch (Exception e)
             {
                 ShowToast("Error: " + e.Message, ToastType.Danger);
                 return false;
             }
+
         }
+        /// <summary>
+        /// This method returns JSON serialization options.
+        /// </summary>
+        /// <returns></returns>
+        public static JsonSerializerOptions GetJsonOptions()
+        {
+            JsonSerializerOptions options = new JsonSerializerOptions();
+            options.IncludeFields = true;
+            options.WriteIndented = true;
+            options.PropertyNameCaseInsensitive = true;
+            options.AllowTrailingCommas = true;
+            options.ReadCommentHandling = JsonCommentHandling.Skip;
+            return options;
+        }
+
     }
 }
