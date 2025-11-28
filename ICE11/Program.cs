@@ -148,7 +148,8 @@ namespace ICE11
                 characterData.Species = reader.ReadLine();
                 characterData.Career = reader.ReadLine();
 
-                if (characterData.AGL == null || characterData.STR == null || characterData.VGR == null || characterData.PER == null || characterData.INT == null || characterData.WIL == null ||
+                if (characterData.AGL == null || characterData.STR == null || characterData.VGR == null ||
+                    characterData.PER == null || characterData.INT == null || characterData.WIL == null ||
                     characterData.CharacterName == null || characterData.Species == null || characterData.Career == null)
                 {
                     throw new FileFormatException("Invalid Character file");
@@ -195,6 +196,24 @@ namespace ICE11
             toast.Location = new Point(x, y);
             toast.TopMost = true;
             toast.Show(Form.ActiveForm);
+        }
+
+        public static void SaveCharacterBinary(string path)
+        {
+            // Create or overwrite the file
+            FileStream filestream = new FileStream(path, FileMode.OpenOrCreate);
+            // Create a BinaryWriter to write to the file
+            using BinaryWriter writer = new BinaryWriter(filestream);
+            // Write each setting to the file (use empty string if null)
+            writer.Write(Settings.Default.AGL ?? "");
+            writer.Write(Settings.Default.STR ?? "");
+            writer.Write(Settings.Default.VGR ?? "");
+            writer.Write(Settings.Default.PER ?? "");
+            writer.Write(Settings.Default.INT ?? "");
+            writer.Write(Settings.Default.WIL ?? "");
+            writer.Write(Settings.Default.CharacterName ?? "");
+            writer.Write(Settings.Default.Species ?? "");
+            writer.Write(Settings.Default.Career ?? "");
         }
     }
 }
