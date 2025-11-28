@@ -90,5 +90,8 @@ namespace ICE11
                 Program.ShowToast("Character Saved!");
             }
         }
+
+
+
     }
 }
