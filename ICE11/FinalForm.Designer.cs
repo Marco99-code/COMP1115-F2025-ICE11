@@ -452,18 +452,21 @@
             BinaryToolStripMenuItem.Name = "BinaryToolStripMenuItem";
             BinaryToolStripMenuItem.Size = new Size(180, 22);
             BinaryToolStripMenuItem.Text = "Binary File";
+            BinaryToolStripMenuItem.Click += BinaryToolStripMenuItem_Click;
             // 
             // JSONToolStripMenuItem
             // 
             JSONToolStripMenuItem.Name = "JSONToolStripMenuItem";
             JSONToolStripMenuItem.Size = new Size(180, 22);
             JSONToolStripMenuItem.Text = "JSON File";
+            JSONToolStripMenuItem.Click += JSONToolStripMenuItem_Click;
             // 
             // TextToolStripMenuItem
             // 
             TextToolStripMenuItem.Name = "TextToolStripMenuItem";
             TextToolStripMenuItem.Size = new Size(180, 22);
             TextToolStripMenuItem.Text = "Text File";
+            TextToolStripMenuItem.Click += TextToolStripMenuItem_Click;
             // 
             // FileToolStripSeparator
             // 
@@ -475,6 +478,7 @@
             ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
             ExitToolStripMenuItem.Size = new Size(180, 22);
             ExitToolStripMenuItem.Text = "E&xit";
+            ExitToolStripMenuItem.Click += ExitToolStripMenuItem_Click;
             // 
             // HelpToolStripMenuItem
             // 
@@ -488,6 +492,7 @@
             AboutToolStripMenuItem.Name = "AboutToolStripMenuItem";
             AboutToolStripMenuItem.Size = new Size(180, 22);
             AboutToolStripMenuItem.Text = "&About...";
+            AboutToolStripMenuItem.Click += AboutToolStripMenuItem_Click;
             // 
             // FinalForm
             // 

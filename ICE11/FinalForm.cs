@@ -91,7 +91,56 @@ namespace ICE11
             }
         }
 
+        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Program.Forms[(int)FormType.About].ShowDialog();
+        }
 
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
 
+        private void TextToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var dialog = new SaveFileDialog();
+            dialog.Title = "Save Character";
+            dialog.Filter = "Character Files (*.chr)|*.chr|All Files (*.*)|*.*";
+            dialog.InitialDirectory = Program.DownloadsFolder;
+            dialog.FileName = Settings.Default.CharacterName + ".chr";
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                Program.SaveCharacter(dialog.FileName);
+                Program.ShowToast("Character Saved!");
+            }
+        }
+
+        private void JSONToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var dialog = new SaveFileDialog();
+            dialog.Title = "Save Character";
+            dialog.Filter = "Character Files (*.json)|*.json|All Files (*.*)|*.*";
+            dialog.InitialDirectory = Program.DownloadsFolder;
+            dialog.FileName = Settings.Default.CharacterName + ".json";
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                Program.SaveCharacterJSON(dialog.FileName);
+                Program.ShowToast("Character Saved!");
+            }
+        }
+
+        private void BinaryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var dialog = new SaveFileDialog();
+            dialog.Title = "Save Character";
+            dialog.Filter = "Character Files (*.dat)|*.dat|All Files (*.*)|*.*";
+            dialog.InitialDirectory = Program.DownloadsFolder;
+            dialog.FileName = Settings.Default.CharacterName + ".dat";
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                Program.SaveCharacterBinary(dialog.FileName);
+                Program.ShowToast("Character Saved!");
+            }
+        }
     }
 }
