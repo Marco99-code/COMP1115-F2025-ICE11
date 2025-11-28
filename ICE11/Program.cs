@@ -110,7 +110,7 @@ namespace ICE11
             writer.WriteLine(Settings.Default.Career);
         }
 
-        public static void LoadCharacter(string path)
+        public static bool LoadCharacter(string path)
         {
 
             try
@@ -149,9 +149,11 @@ namespace ICE11
                 characterData.Species = reader.ReadLine();
                 characterData.Career = reader.ReadLine();
 
-                if (characterData.AGL == null || characterData.STR == null || characterData.VGR == null ||
-                    characterData.PER == null || characterData.INT == null || characterData.WIL == null ||
-                    characterData.CharacterName == null || characterData.Species == null || characterData.Career == null)
+                if (characterData.AGL == null || characterData.STR == null ||
+                    characterData.VGR == null || characterData.PER == null ||
+                    characterData.INT == null || characterData.WIL == null ||
+                    characterData.CharacterName == null || characterData.Species == null ||
+                    characterData.Career == null)
                 {
                     throw new FileFormatException("Invalid Character file");
                 }
@@ -165,18 +167,23 @@ namespace ICE11
                 Settings.Default.CharacterName = characterData.CharacterName;
                 Settings.Default.Species = characterData.Species;
                 Settings.Default.Career = characterData.Career;
+                return true;
+
             }
             catch (FileNotFoundException e)
             {
                 ShowToast("File Not Found: " + e.Message, ToastType.Danger);
+                return false;
             }
             catch (FileFormatException e)
             {
                 ShowToast("Format Error: " + e.Message, ToastType.Danger);
+                return false;
             }
             catch (Exception e)
             {
                 ShowToast("Error: " + e.Message, ToastType.Danger);
+                return false;
             }
         }
 

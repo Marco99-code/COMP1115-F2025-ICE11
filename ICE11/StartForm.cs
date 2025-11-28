@@ -35,16 +35,42 @@ namespace ICE11
         /// <param name="e"></param>
         private void Button_Load_Click(object sender, EventArgs e)
         {
-            var dialog = new OpenFileDialog();
+            OpenFileDialog dialog = new OpenFileDialog();
             dialog.Title = "Load Character";
-            dialog.Filter = "Character Files (*.chr)|*.chr|All Files (*.*)|*.*";
+            dialog.Filter =
+            "Text Character Files (*.chr)|*.chr|" +
+            "Binary Character Files (*.dat)|*.dat|" +
+            "JSON Character Files (*.json)|*.json|" +
+            "All Files (*.*)|*.*";
             dialog.InitialDirectory = Program.DownloadsFolder;
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                Program.LoadCharacter(dialog.FileName);
-                Program.HasLoadedCharacter = true;
-                Program.Forms[(int)FormType.Selection].Show();
-                Hide();
+                string fileName = dialog.FileName;
+                string extension = Path.GetExtension(fileName).ToLower();
+                bool loaded = false;
+
+                switch (extension)
+                {
+                    case ".chr":
+                        loaded = Program.LoadCharacter(fileName);
+                        break;
+                    case ".dat":
+                        loaded = Program.LoadCharacterBinary(fileName);
+                        break;
+                    case ".json":
+                        loaded = Program.LoadCharacterJSON(fileName);
+                        break;
+                    default:
+                        Program.ShowToast("Unknown file type. Please select .chr, .dat, or .json.",
+                        ToastType.Warning);
+                        return;
+                }
+                Program.HasLoadedCharacter = loaded;
+                if (loaded)
+                {
+                    Program.Forms[(int)FormType.Selection].Show();
+                    Hide();
+                }
             }
         }
 
